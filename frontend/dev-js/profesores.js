@@ -3,9 +3,11 @@ $(document).ready(function(){
     $('#signup').submit(function(e){
         e.preventDefault()
         if($('#password').val()===$('#re-pass').val()){
-            $('.alert-warning').hide()
-            axios.post('http://localhost:3000/user/signup',{
-                body: {
+            console.log('in')
+            $('.error').hide()
+            $('.loader').show()
+            $.post('http://localhost:3000/user/signup',{
+            
                     fname : $('#fname').val(),
                     lname : $('#lname').val(),
                     email : $('#email').val(),
@@ -13,38 +15,37 @@ $(document).ready(function(){
                     uni   : $('#university').val(),
                     subject : $('#subject').val(),
                     type    : 'teacher',
+                },
+                function(data){
+                    $('.loader').hide()
+                    console.log(data)
+                    $('.success').show()
                 }
-            })
-            .then(response=>{
-                console.log(response)
-                $('.alert-success').show()
-            })
-            .catch(err=>{
-                console.log(err)
-            })
+            )
         }
         else{
-            $('.alert-warning').show()
+            $('.error').show()
         }
     })
     $('#login').submit(function(e){
         e.preventDefault()
-        axios.post('http://localhost:3000/user/signup',{
-            body: {
-                email : $('#Email').val(),
-                pwd   : $('#Pass').val(),
-                type    : 'teacher',
+        $('#loader').show()
+                
+        $.post('http://localhost:3000/user/signin',{
+            email : $('#Email').val(),
+            pwd   : $('#Pass').val(),
+            type    : 'teacher',
+        },
+        function(data){
+            console.log(data)
+            if(data.result.status.toLowerCase()==="active"){
+                $('#loader').hide()
+                $('.login-alert').hide()
+                $('.login-success').show()    
+                setTimeout(()=>{
+                    window.location.href = "./profesor.html";
+                },1000)
             }
-        })
-        .then(response=>{
-            console.log(response)
-            $('.login-alert').hide()
-            $('.login-success').show()
-        })
-        .catch(err=>{
-            console.log(err)
-            $('.login-alert').show()
-            $('.login-success').hide()
         })
     });
 

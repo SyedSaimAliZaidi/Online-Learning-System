@@ -16,6 +16,29 @@
   <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    .loader {
+      border: 4px solid #9595ec;
+      border-radius: 50%;
+      border-top: 4px solid #32325d;
+      width: 25px;
+      height: 25px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
 </head>
 
 <body class="">
@@ -57,7 +80,7 @@
                                 <input required type="password"   style="color: #32325d;"  id="password" class="form-control" placeholder="Enter Password">
                               </div>                           
                               <div class="form-group">
-                                <input required type="text" id="re-pass"   style="color: #32325d;"  class="form-control" placeholder="Re-Enter Password">
+                                <input required type="password" id="re-pass"   style="color: #32325d;"  class="form-control" placeholder="Re-Enter Password">
                               </div>                          
                               <div class="form-group">
                                 <input required type="text" id="university"   style="color: #32325d;"  class="form-control" placeholder="Enter University">
@@ -65,12 +88,15 @@
                               <div class="form-group">
                                 <input required type="text" id="subject"   style="color: #32325d;"  class="form-control" placeholder="Enter Subject">
                               </div>
-                              <div class="alert alert-warning" role="alert" style="display: none;">
+                              <div class="alert alert-warning error" role="alert" style="display: none;">
                                 Password does not match.
                               </div>
-                              <div class="alert alert-success" role="alert" style="display: none;">
+                              <div class="alert alert-success success" role="alert" style="display: none;">
                                 Profile Created Successfully!
                               </div>
+                              <center>
+                                <div class="loader" style="display:none;"></div>
+                              </center>
                               <button type="submit" class="btn btn-default">Signup</button>
                             </form>                    
                         </div>
@@ -86,11 +112,11 @@
                         <div class="card-body ml-auto mr-auto">
                             <form id="login">
                                 <div class="form-group">
-                                  <input type="text" id="Email" class="form-control" placeholder="Email" required style="color: #32325d;">
+                                  <input type="email" id="Email" class="form-control" placeholder="Email" required style="color: #32325d;">
                                 </div>
                             
                                 <div class="form-group">
-                                  <input type="text" id="Pass" class="form-control" placeholder="Password">
+                                  <input type="password" id="Pass" class="form-control" placeholder="Password"  required style="color: #32325d;">
                                 </div>
                                 <div class="alert alert-warning login-alert" role="alert" style="display: none;">
                                   Login with valid credentials. 
@@ -98,7 +124,9 @@
                                 <div class="alert alert-success login-success" role="alert" style="display: none;">
                                   Login Successful!
                                 </div>
-                                
+                                <center>
+                                  <div class="loader" id="loader" style="display:none;"></div>
+                                </center>                                  
                                 <button type="submit" class="btn btn-default">Login</button>
                             </form>                    
                         </div>
@@ -110,19 +138,21 @@
         
     </div>
   </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
   <!--   Core JS Files   -->
   <script src="assets/js/core/jquery.min.js"></script>
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap.min.js"></script>
   <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
-  
+
+
   <!--  Notifications Plugin    -->
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="assets/demo/demo.js"></script>
-  <script>
+  <!-- <script>
     $(document).ready(function() {
         $('input').click(function(){
             $(this).css('border-color','#32325d')
@@ -236,7 +266,7 @@
         });
       });
     });
-  </script>
+  </script> -->
   
   <script src="./dev-js/profesores.js"></script>
 </body>
