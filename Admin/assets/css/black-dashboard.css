@@ -59,10 +59,6 @@
 *::after {
   box-sizing: border-box;
 }
-.vl {
-  border-left: 1px solid #32325d;
-  height: auto;
-}
 
 html {
   font-family: sans-serif;
@@ -13200,7 +13196,7 @@ fieldset[disabled] .btn-primary.active {
 }
 
 .btn-primary.btn-link {
-  color: #32325d;
+  color: #e14eca;
 }
 
 .btn-primary.btn-link:hover,
@@ -13208,7 +13204,7 @@ fieldset[disabled] .btn-primary.active {
 .btn-primary.btn-link:active {
   background-color: transparent !important;
   background-image: none !important;
-  color: #32325d !important;
+  color: #ffffff !important;
   text-decoration: none;
   box-shadow: none;
 }
@@ -14581,7 +14577,7 @@ fieldset[disabled] .btn-link.active {
 }
 
 .footer {
-  padding: 24px 0 24px 0px;
+  padding: 24px 0 24px 250px;
 }
 
 .footer [class*="container-"] {
@@ -17805,11 +17801,10 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .main-panel {
-  /* position: relative;
-  float: right; */
+  position: relative;
+  float: right;
   width: 100%;
   min-height: 100vh;
-  /* border-top: 2px solid #e14eca; */
   background: linear-gradient(#5e72e4, #5e72e4);
   -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
   -moz-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
@@ -17831,7 +17826,7 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .main-panel>.content {
-  padding: 78px 30px 30px 30px;
+  padding: 78px 30px 30px 280px;
   min-height: calc(100vh - 70px);
 }
 
@@ -18503,12 +18498,12 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
 .bd-docs table .datepicker thead th,
 .bd-docs table .datepicker table thead th,
 .bd-docs table .datepicker .tim-icons {
-  color: #32325d;
+  color: #e14eca;
 }
 
 .bd-docs .bd-example .picker-switch .tim-icons,
 .bd-docs table .picker-switch .tim-icons {
-  color: #32325d;
+  color: #e14eca;
 }
 
 .bd-docs .footer .container-fluid>nav {
@@ -19807,12 +19802,12 @@ Copyright (c) 2015 Daniel Eden
 
 .white-content .card:not(.card-white) .card-header .card-title,
 .white-content .card:not(.card-white) .card-body .card-title {
-  color: #32325d;
+  color: #1d253b;
 }
 
 .white-content .card:not(.card-white) .card-body .card-category,
 .white-content .card:not(.card-white) .card-body .card-description {
-  color: #32325d;
+  color: #1d253b;
 }
 
 .white-content .card:not(.card-white) label:not(.btn) {
@@ -19936,7 +19931,7 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .card {
-  background: #F4F5F7;
+  background: #27293d;
   border: 0;
   position: relative;
   width: 100%;
@@ -19962,9 +19957,9 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .card .card-body .card-title {
-  color: #32325d;
+  color: #ffffff;
   text-transform: inherit;
-  font-weight: 500;
+  font-weight: 300;
   margin-bottom: .75rem;
 }
 
@@ -19984,8 +19979,8 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .card .card-header .card-title {
-  color: #32325d;
-  font-weight: 500;
+  color: #ffffff;
+  font-weight: 100;
 }
 
 .card .card-header .card-category {
@@ -20446,6 +20441,7 @@ Copyright (c) 2015 Daniel Eden
   padding-right: 0;
 }
 
-
+thead,tbody,tr, th,td{
+  color: #32325d;
+}
 /*# sourceMappingURL=dashboard-free.css.map */
-
