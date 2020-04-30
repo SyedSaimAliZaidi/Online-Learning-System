@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Estudiantes | Home
+  <title id="title">
+    Profesor 
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -16,6 +16,10 @@
   <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body class="">
@@ -33,7 +37,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Estudiantes</a>
+            <a class="navbar-brand" href="javascript:void(0)">Profesores</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -42,11 +46,11 @@
           </button>
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
-              <li class="search-bar input-group">
+              <!-- <li class="search-bar input-group">
                 <button class="btn btn-link" id="search-button" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="tim-icons icon-simple-add" ></i>
                   <span class="d-lg-none d-md-block">Add Class</span>
                 </button>
-              </li>
+              </li> -->
               
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -73,20 +77,20 @@
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Join Class</h4>
-              <button type="button" style="color: #32325d;" class="close" data-dismiss="modal" aria-hidden="true">
+              <h4 class="modal-title">Add Class</h4>
+              <button type="button" class="close" style="color: #32325d;" data-dismiss="modal" aria-hidden="true">
                 <i class="tim-icons icon-simple-remove"></i>
               </button>
             </div>
             <div class="modal-body">
-                <p>Ask your teacher for the class code, then enter it here.</p>
-                <form id="add-class">
-                    <div class="form-group">
-                        <!-- <label for="exampleInputEmail1">Class Code</label> -->
-                        <input type="text" style="color: black;" class="form-control" id="code" aria-describedby="emailHelp" placeholder="Enter Class Code">
-                    </div>
-                    <button type="submit" class="btn btn-default">Join</button>
-                </form>
+              <form id="add-class">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Class Name</label>
+                  <input style="color: black;" type="text" class="form-control class" id="classname" placeholder="Enter Class Name">
+                </div>
+          
+                <button type="submit" class="btn btn-default">Add</button>
+              </form>
             </div>
           </div>
         </div>
@@ -96,9 +100,7 @@
         
         <div class="row">
           <div class="col-lg-12">
-            <div class="row render-classes">
-
-            </div>
+            <div class="row render-classes"></div>
           </div>
         </div>     
       </div>
@@ -128,10 +130,9 @@
   <script src="assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
-      $('#code').click(function(){
+      $('#classname').click(function(){
         $(this).css('border-color','#32325d')
       })
-      
       $().ready(function() {
         $sidebar = $('.sidebar');
         $navbar = $('.navbar');
@@ -241,8 +242,8 @@
       });
     });
   </script>
-  <script src="./dev-js/logoute.js"></script>
-  <script src="./dev-js/estudiant.js"></script>
+  <script src="./dev-js/profesorClass.js"></script>
+  <script src="./dev-js/logoutp.js"></script>
 </body>
 
 </html>

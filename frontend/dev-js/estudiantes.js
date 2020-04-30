@@ -3,49 +3,46 @@ $(document).ready(function(){
     $('#signup').submit(function(e){
         e.preventDefault()
         if($('#password').val()===$('#re-pass').val()){
-            $('.alert-warning').hide()
-            axios.post('http://localhost:3000/user/signup',{
-                body: {
+            $('.alert-password').hide()
+            $('.loader').show()
+            $.post('http://localhost:3000/user/signup',{
                     fname : $('#fname').val(),
                     lname : $('#lname').val(),
                     email : $('#email').val(),
                     pwd   : $('#password').val(),
                     uni   : $('#university').val(),
-                    subject : $('#subject').val(),
+                    course : $('#course').val(),
+                    phone  : $('#phone').val(),
                     type    : 'student',
+                },
+                function(data){
+                    
+                    console.log(data)
+                    $('.loader').hide()
+                    $('.alert-done').show()
                 }
-            })
-            .then(response=>{
-                console.log(response)
-                $('.alert-success').show()
-            })
-            .catch(err=>{
-                console.log(err)
-            })
+            )
         }
         else{
-            $('.alert-warning').show()
+            $('.alert-password').show()
         }
     })
     $('#login').submit(function(e){
         e.preventDefault()
-        axios.post('http://localhost:3000/user/signup',{
-            body: {
+        $('#loader').show()
+        $.post('http://localhost:3000/user/signin',{
                 email : $('#Email').val(),
                 pwd   : $('#Pass').val(),
                 type    : 'student',
+            },
+            function(data){
+                $('#loader').hide()
+                $('.login-success').show()
+                console.log(data)
+                localStorage.setItem('sid',data.result.id)
+                window.location.href = './estudiant.html';
             }
-        })
-        .then(response=>{
-            console.log(response)
-            $('.login-alert').hide()
-            $('.login-success').show()
-        })
-        .catch(err=>{
-            console.log(err)
-            $('.login-alert').show()
-            $('.login-success').hide()
-        })
+        )
     });
 
 })

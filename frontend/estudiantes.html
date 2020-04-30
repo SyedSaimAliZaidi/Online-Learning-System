@@ -16,6 +16,29 @@
   <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+  <style>
+    .loader {
+      border: 4px solid #9595ec;
+      border-radius: 50%;
+      border-top: 4px solid #32325d;
+      width: 25px;
+      height: 25px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
+
 </head>
 
 <body class="">
@@ -35,7 +58,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="col-md-8 card ml-auto mr-auto" style="margin-top: 12vh;">
+        <div class="col-md-8 card ml-auto mr-auto" style="margin-top: 10vh;">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="text-center">
@@ -54,23 +77,29 @@
                                 <input required type="email"  id="email"   style="color: #32325d;" class="form-control" placeholder="Enter Email">
                               </div>
                               <div class="form-group">
+                                <input required type="text"  id="phone"   style="color: #32325d;" class="form-control" placeholder="Enter Email">
+                              </div>
+                              <div class="form-group">
                                 <input required type="password"   style="color: #32325d;"  id="password" class="form-control" placeholder="Enter Password">
                               </div>                           
                               <div class="form-group">
-                                <input required type="text" id="re-pass"   style="color: #32325d;"  class="form-control" placeholder="Re-Enter Password">
+                                <input required type="password" id="re-pass"   style="color: #32325d;"  class="form-control" placeholder="Re-Enter Password">
                               </div>                          
                               <div class="form-group">
                                 <input required type="text" id="university"   style="color: #32325d;"  class="form-control" placeholder="Enter University">
                               </div>
                               <div class="form-group">
-                                <input required type="text" id="subject"   style="color: #32325d;"  class="form-control" placeholder="Enter Subject">
+                                <input required type="text" id="course"   style="color: #32325d;"  class="form-control" placeholder="Enter Subject">
                               </div>
-                              <div class="alert alert-warning" role="alert" style="display: none;">
+                              <div class="alert alert-warning alert-password" role="alert" style="display: none;">
                                 Password does not match.
                               </div>
-                              <div class="alert alert-success" role="alert" style="display: none;">
+                              <div class="alert alert-success alert-done" role="alert" style="display: none;">
                                 Profile Created Successfully!
                               </div>
+                              <center>
+                                <div class="loader" style="display:none;"></div>
+                              </center>
                               <button type="submit" class="btn btn-default">Signup</button>
                             </form>                    
                         </div>
@@ -90,7 +119,7 @@
                                 </div>
                             
                                 <div class="form-group">
-                                  <input type="text" id="Pass" class="form-control" placeholder="Password">
+                                  <input type="password" id="Pass" class="form-control"  required style="color: #32325d;" placeholder="Password">
                                 </div>
                                 <div class="alert alert-warning login-alert" role="alert" style="display: none;">
                                   Login with valid credentials. 
@@ -98,7 +127,10 @@
                                 <div class="alert alert-success login-success" role="alert" style="display: none;">
                                   Login Successful!
                                 </div>
-                                
+                                <center>
+                                  <div class="loader" id="loader" style="display:none;"></div>
+                                </center>                                  
+
                                 <button type="submit" class="btn btn-default">Login</button>
                             </form>                    
                         </div>

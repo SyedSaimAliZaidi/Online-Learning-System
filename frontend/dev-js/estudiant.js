@@ -1,15 +1,16 @@
 
 $(document).ready(function(){
 
-    console.log(localStorage.getItem('pid'))
+    console.log(localStorage.getItem('sid'))
     $('#add-class').submit(function(e){
         e.preventDefault()
-        $.post('http://localhost:3000/resource/course',
+        $.post('http://localhost:3000/resource/enroll',
             {
-                tid : localStorage.getItem('pid'),
-                name : $('#classname').val(),
+                sid : localStorage.getItem('sid'),
+                code : $('#code').val(),
             },
             function(data){
+                console.log(data)
                 renderClass(data.resources)
                 $('.bd-example-modal-sm').hide()
                 // $('.loader').hide()
@@ -18,7 +19,7 @@ $(document).ready(function(){
         )
     })
 
-    $.get('http://localhost:3000/resource/courses/myCourses?tid='+localStorage.getItem('pid'),
+    $.get('http://localhost:3000/resource/enrolled?sid='+localStorage.getItem('sid'),
         function(data){
             $.each(data.resources,function(index,item){
                 renderClass(item);

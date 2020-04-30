@@ -18,7 +18,6 @@ $(document).ready(function(){
                 },
                 function(data){
                     $('.loader').hide()
-                    console.log(data)
                     $('.success').show()
                 }
             )
@@ -37,11 +36,11 @@ $(document).ready(function(){
             type    : 'teacher',
         },
         function(data){
-            console.log(data)
             if(data.result.status.toLowerCase()==="active"){
                 $('#loader').hide()
                 $('.login-alert').hide()
                 $('.login-success').show()    
+                localStorage.setItem('pid',data.result.id)
                 setTimeout(()=>{
                     window.location.href = "./profesor.html";
                 },1000)
