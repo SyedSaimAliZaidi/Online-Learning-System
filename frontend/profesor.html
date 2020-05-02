@@ -19,7 +19,28 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+  <style>
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 4px solid #5E72E4;
+      border-bottom: 4px solid #5E72E4;
+      width: 20px;
+      height: 20px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+    
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
 </head>
 
 <body class="">
@@ -88,7 +109,10 @@
                   <label for="exampleInputEmail1">Class Name</label>
                   <input style="color: black;" type="text" class="form-control class" id="classname" placeholder="Enter Class Name">
                 </div>
-          
+                <div class="loader" style="display: none;"></div>
+                <div class="alert alert-success" role="alert" style="display: none;">
+                  Class Added Successful!
+                </div>
                 <button type="submit" class="btn btn-default">Add</button>
               </form>
             </div>
@@ -119,17 +143,6 @@
           </div> -->
         </div>     
       </div>
-      <!-- <footer class="footer">
-        <div class="container-fluid">
-          <div class="copyright">
-            ©
-            <script>
-              document.write(new Date().getFullYear())
-            </script> made with <i class="tim-icons icon-heart-2"></i> by
-            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
-          </div>
-        </div>
-      </footer> -->
     </div>
   </div>
   <!--   Core JS Files   -->

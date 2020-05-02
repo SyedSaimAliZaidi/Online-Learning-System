@@ -2,29 +2,35 @@
 $(document).ready(function(){
 
     console.log(localStorage.getItem('pid'))
+    getClasses()
+    
     $('#add-class').submit(function(e){
         e.preventDefault()
+        $('.loader').show()
         $.post('http://localhost:3000/resource/course',
             {
                 tid : localStorage.getItem('pid'),
                 name : $('#classname').val(),
             },
             function(data){
-                renderClass(data.resources)
-                $('.bd-example-modal-sm').hide()
-                // $('.loader').hide()
-                // $('.success').show()
+                $('.loader').hide()
+                $('.alert-success').show()
+                setTimeout(()=>{
+                    window.location.reload()
+                },1000)
             }
         )
     })
 
-    $.get('http://localhost:3000/resource/courses/myCourses?tid='+localStorage.getItem('pid'),
-        function(data){
-            $.each(data.resources,function(index,item){
-                renderClass(item);
-            })
-        }
-    )
+    function getClasses(){
+        $.get('http://localhost:3000/resource/courses/myCourses?tid='+localStorage.getItem('pid'),
+            function(data){
+                $.each(data.resources,function(index,item){
+                    renderClass(item);
+                })
+            }
+        )
+    }
     function renderClass(item){
         let htmlStr='';
         htmlStr += '<div class="col-lg-3" >'
@@ -34,11 +40,8 @@ $(document).ready(function(){
         htmlStr += '</div>'
         htmlStr += '<div class="card-footer text-right">'
         htmlStr += '<button id="'+item.tid+'" class="btn btn-primary btn-link">'
-        htmlStr += '<i class="tim-icons icon-trash-simple"></i>'
+        htmlStr += 'View <i class="tim-icons icon-double-right"></i>'
         htmlStr += '</button>'
-        htmlStr += '<button  id="'+item.tid+'" class="btn btn-primary btn-link">'
-        htmlStr += '<i class="tim-icons icon-pencil"></i>'
-        htmlStr += '</button>'                  
         htmlStr += '</div>'
         htmlStr += '</div>'
         htmlStr += '</div>'
