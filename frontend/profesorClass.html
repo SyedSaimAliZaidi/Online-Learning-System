@@ -100,7 +100,43 @@
         
         <div class="row">
           <div class="col-lg-12">
-            <div class="row render-classes"></div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="card" style="height: 80vh;overflow-y: scroll;">
+                  <div class="render-classes"></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card  text-center" style="height: 80vh;">
+                  <div class="card-header">
+                    <h3 class="card-title">Add Question</h3>
+                  </div>
+                  <div class="card-body">
+                    <form id="add-question">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1" style="color: black;" >Question Text</label>
+                        <input style="color: black;" type="text" class="form-control class" id="q-text" placeholder="Enter Question Text">
+                      </div>              
+                      <div class="form-group">
+                        <button type="button" class="btn btn-default">Upload Question</button>
+                        <input type="file"  id="q-file">
+                      </div>
+                      <div class="form-group mt-5">
+                        <label for="exampleInputEmail1" style="color: black;" >Answer Text</label>
+                        <input style="color: black;" type="text" class="form-control class" id="a-text" placeholder="Enter Answer Text">
+                      </div>              
+                      <div class="form-group">
+                        <button type="button" class="btn btn-default">Upload Answer</button>
+                        <input type="file"  id="a-file">
+                      </div>
+                      <button type="submit" class="btn btn-default mt-5">Add</button>
+                    </form>
+  
+
+                  </div>
+                </div>
+              </div>  
+            </div>
           </div>
         </div>     
       </div>

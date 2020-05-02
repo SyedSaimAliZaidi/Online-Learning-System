@@ -8,4 +8,7 @@ $(document).ready(function(){
     $('#title').html('Profesor | '+name ) 
     $('.navbar-brand').html('Profesor | '+name ) 
 
+    function renderQuestions(){
+        
+    }
 });
