@@ -25,6 +25,7 @@ $(document).ready(function(){
     function getClasses(){
         $.get('http://localhost:3000/resource/courses/myCourses?tid='+localStorage.getItem('pid'),
             function(data){
+                console.log(data)
                 $.each(data.resources,function(index,item){
                     renderClass(item);
                 })
@@ -34,7 +35,7 @@ $(document).ready(function(){
     function renderClass(item){
         let htmlStr='';
         htmlStr += '<div class="col-lg-3" >'
-        htmlStr += '<div class="card" id="'+item.name+'" style="cursor:pointer;">'
+        htmlStr += '<div class="card" id="'+item.code+'" style="cursor:pointer;">'
         htmlStr += '<div class="card-header" id='+item.name+'>'
         htmlStr += '<h4 class="card-title" id="'+item.name+'" style="cursor:pointer;">'+item.name+'</h4>'
         htmlStr += '</div>'
@@ -50,11 +51,8 @@ $(document).ready(function(){
 
     $(document).on('click','.card',function(){
         // alert()
-        name = $(this).attr('id')
-        window.location.assign('./profesorClass.html?name='+name);
-    })
-    $('.card-header').click(function(){
-        // name = $(this).attr('id')
-        // window.location.assign('./profesorClass.html?name='+name);
+        code = $(this).attr('id')
+        name = code.split('-')[0];
+        window.location.assign('./profesorClass.html?name='+name+'&code='+code);
     })
 })
