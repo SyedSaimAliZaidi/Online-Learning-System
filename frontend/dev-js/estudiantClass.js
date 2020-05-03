@@ -12,7 +12,7 @@ $(document).ready(function(){
     $.get('http://localhost:3000/resource/data?code='+code,function(data){
         console.log(data)
         $.each(data.resources,function(index,item){
-            renderItems(index,item)
+          renderItems(index,item)
         })        
         setTimer()
     })
@@ -21,17 +21,28 @@ $(document).ready(function(){
 
     function renderItems(index,item){
         let htmlStr='';
-        htmlStr += '<div class="col-lg-8" >'
-        htmlStr += '<div class="card"  style="cursor:pointer;">'
+        htmlStr += '<div class="col-lg-8">'
+        htmlStr += '<div class="card"  style="cursor:pointer;background-color:white;height:60vh;">'
         htmlStr += '<div class="card-header" >'
         htmlStr += '<h4 class="card-title" style="cursor:pointer;">Question '+(index+1)+'</h4>'
+        htmlStr += '<p class="card-title">'+item.ques_text+'</p>'
         htmlStr += '</div>'
         
         htmlStr += '<div class="card-body">'
+        
         htmlStr += '<audio id="myAudio" controls>'
         htmlStr += '<source src="../Recordings/'+item.ques_rec+'" type="audio/ogg">'
         htmlStr += 'Your browser does not support the audio element.'
         htmlStr += '</audio>'
+        
+
+        htmlStr += '<div style="display:none;"><h4 class="card-title mt-5" style="cursor:pointer;">Answer '+(index+1)+'</h4>'
+        htmlStr += '<p class="card-title">'+item.ans_text+'</p>'
+        htmlStr += '<audio id="myAudio" controls>'
+        htmlStr += '<source src="../Recordings/'+item.ans_rec+'" type="audio/ogg">'
+        htmlStr += 'Your browser does not support the audio element.'
+        htmlStr += '</audio></div>'
+        
         
         htmlStr += '</div>'
         htmlStr += '</div>'
@@ -39,7 +50,7 @@ $(document).ready(function(){
 
 
         htmlStr += '<div class="col-lg-4" >'
-        htmlStr += '<div class="card"  style="cursor:pointer;height:20vh;">'
+        htmlStr += '<div class="card"  style="cursor:pointer;height:60vh;background-color:white;">'
         htmlStr += '<div class="card-body text-center mt-5">'
         htmlStr += '<div id="app"  style="color:black;"></div>'
         htmlStr += '</div>'

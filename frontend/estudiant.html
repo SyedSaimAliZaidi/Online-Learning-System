@@ -16,6 +16,28 @@
   <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+  <style>
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 4px solid #5E72E4;
+      border-bottom: 4px solid #5E72E4;
+      width: 20px;
+      height: 20px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+    
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
 </head>
 
 <body class="">
@@ -84,6 +106,10 @@
                     <div class="form-group">
                         <!-- <label for="exampleInputEmail1">Class Code</label> -->
                         <input type="text" style="color: black;" class="form-control" id="code" aria-describedby="emailHelp" placeholder="Enter Class Code">
+                    </div>
+                    <div class="loader" style="display: none;"></div>
+                    <div class="alert alert-success" role="alert" style="display: none;">
+                      Class Added Successful!
                     </div>
                     <button type="submit" class="btn btn-default">Join</button>
                 </form>
