@@ -1,8 +1,6 @@
 $(document).ready(function(){
 
     let list = new Array()
-    // let student = new Array()
-    // let teacher = new Array()
     $.get('http://localhost:3000/user/users',
         function(data){
             console.log(data)
@@ -45,7 +43,7 @@ $(document).ready(function(){
             htmlStr += '</span></td>'    
         }
         
-        htmlStr += '<td><button id="'+item.id+'" class="btn btn-icon btn-primary btn-sm status-update" type="button">'
+        htmlStr += '<td><button id="'+item.id+'" value='+item.status+' class="btn btn-icon btn-primary btn-sm status-update" type="button">'
         htmlStr += '<span class="btn-inner--icon"><i class="ni ni-send"></i></span>'
         htmlStr += '</button></td>'
         htmlStr += '</tr>'
@@ -72,29 +70,48 @@ $(document).ready(function(){
             htmlStr += '<span class="status">'+item.status+'</span>'
             htmlStr += '</span></td>'    
         }
-        htmlStr += '<td><button id="'+item.id+'" class="btn btn-icon btn-primary btn-sm status-update" type="button">'
-        htmlStr += '<span  class="btn-inner--icon"><i class="ni ni-send"></i></span>'
+        htmlStr += '<td><button id="'+item.id+'" value='+item.status+' class="btn btn-icon btn-primary btn-sm status-update" type="button">'
+        htmlStr += '<span class="btn-inner--icon"><i class="ni ni-send"></i></span>'
         htmlStr += '</button></td>'
         htmlStr += '</tr>'
         $(tableID).append(htmlStr)        
     }
 
     $(document).on('click','.status-update',function(){
-        console.log($(this).attr('id'))
-        link = 'http://localhost:3000/user/status'
-        $.post(link,
-            {
-                id : $(this).attr('id'),
-                status : 'active' ,
-            },
-            function(data){
-                console.log(data)
-                if(data.result==="Targeted user status has been updated."){
-                    setTimeout(()=>{
-                        window.location.reload()
-                    },1000)
+        console.log($(this).attr('id'),$(this).attr('value'))
+        if($(this).attr('value').toString().toLowerCase()==='active'){
+            link = 'http://localhost:3000/user/status'
+            $.post(link,
+                {
+                    id : $(this).attr('id'),
+                    status : 'inactive' ,
+                },
+                function(data){
+                    console.log(data)
+                    if(data.result==="Targeted user status has been updated."){
+                        setTimeout(()=>{
+                            window.location.reload()
+                        },1000)
+                    }
                 }
-            }
-        )
+            )    
+        }
+        else{
+            link = 'http://localhost:3000/user/status'
+            $.post(link,
+                {
+                    id : $(this).attr('id'),
+                    status : 'active' ,
+                },
+                function(data){
+                    console.log(data)
+                    if(data.result==="Targeted user status has been updated."){
+                        setTimeout(()=>{
+                            window.location.reload()
+                        },1000)
+                    }
+                }
+            )    
+        }
     })
 })
