@@ -11,12 +11,19 @@ $(document).ready(function(){
 
     let Quests = new Array()
     let index = 0;
+    let length = 0;
     $.get('http://localhost:3000/resource/data?code='+code,function(data){
       console.log(data)
-      $.each(data.resources,function(index,item){
-        Quests.push(item)
-      })
-      renderItems(index,Quests[index])
+      length = data.resources.length
+      if(data.resources.length>0){
+        $.each(data.resources,function(index,item){
+          Quests.push(item)
+        })
+        renderItems(index,Quests[index])
+      }
+      else{
+        $('#No-Content').show()
+      }
     })
 
 
@@ -25,13 +32,13 @@ $(document).ready(function(){
         let htmlStr='';
         let timer = item.timer;
         htmlStr += '<div class="col-lg-8">'
-        htmlStr += '<div class="card"  style="cursor:pointer;background-color:white;height:60vh;">'
-        htmlStr += '<div class="card-header" >'
-        htmlStr += '<h4 class="card-title" style="cursor:pointer;">Question '+(index+1)+'</h4>'
-        htmlStr += '<p class="card-title">'+item.ques_text+'</p>'
-        htmlStr += '</div>'
+        htmlStr += '<div class="card"  style="cursor:pointer;background-color:white;height:77vh;">'
+        // htmlStr += '<div class="card-header" >'
+        // htmlStr += '</div>'
         
         htmlStr += '<div class="card-body">'
+        htmlStr += '<h4 class="card-title" style="cursor:pointer;">Question '+(index+1)+'</h4>'
+        htmlStr += '<p class="card-title">'+item.ques_text+'</p>'
         
         htmlStr += '<audio id="question" controls>'
         htmlStr += '<source src="../Recordings/'+item.ques_rec+'" type="audio/ogg">'
@@ -39,14 +46,21 @@ $(document).ready(function(){
         htmlStr += '</audio>'
         
 
-        htmlStr += '<div style="display:none;"><h4 class="card-title mt-5" style="cursor:pointer;">Answer '+(index+1)+'</h4>'
+        htmlStr += '<div id="show-ans" style="display:none;"><h4 class="card-title" style="cursor:pointer;">Answer '+(index+1)+'</h4>'
         htmlStr += '<p class="card-title">'+item.ans_text+'</p>'
-        htmlStr += '<audio id="question" controls>'
+        htmlStr += '<audio id="answer" controls>'
         htmlStr += '<source src="../Recordings/'+item.ans_rec+'" type="audio/ogg">'
         htmlStr += 'Your browser does not support the audio element.'
-        htmlStr += '</audio></div>'
+        htmlStr += '</audio>'
+        htmlStr += '<div class="col-md-12 card-title mt-3">'
+        htmlStr += '<p><label style="color:black;"><input type="checkbox" id="c" value="Correct"> Correct</label></p>'
+        htmlStr += '<p><label style="color:black;"><input type="checkbox" id="m" value="Middleway"> MiddleWay</label></p>'
+        htmlStr += '<p><label style="color:black;"><input type="checkbox" id="w" value="Wrong"> Wrong</label></p>'
+        htmlStr += '<p><input type="button" class="btn btn-default feedback" value="Submit Feedback"></p>'
+        htmlStr += '</div></div>'
 
         htmlStr += '</div>'
+
         htmlStr += '<div class="card-footer text-right" >'
         htmlStr += '<button class="btn btn-default btn-link" id="next-quest">'
         htmlStr += 'Next <i class="tim-icons icon-double-right"></i>'
@@ -59,7 +73,7 @@ $(document).ready(function(){
 
 
         htmlStr += '<div class="col-lg-4" >'
-        htmlStr += '<div class="card"  style="cursor:pointer;height:60vh;background-color:white;">'
+        htmlStr += '<div class="card"  style="cursor:pointer;height:77vh;background-color:white;">'
         htmlStr += '<div class="card-header text-center mt-3" >'
         htmlStr += '<h3 class="card-title" style="cursor:pointer;">Timer</h3>'
         htmlStr += '<h4 id="app"  style="color:black;"></h4>'
@@ -71,7 +85,10 @@ $(document).ready(function(){
         htmlStr += 'Stop Timer <i class="tim-icons icon-time-alarm"></i>'
         htmlStr += '</button></div>'
         htmlStr += '<div><button class="btn btn-default" id="replay">'
-        htmlStr += 'Play From Start <i class="tim-icons icon-refresh-02"></i>'
+        htmlStr += 'Play Question From Start <i class="tim-icons icon-refresh-02"></i>'
+        htmlStr += '</button></div>'
+        htmlStr += '<div id="show-ans-btn" style="display:none;"><button class="btn btn-default" id="replay-ans">'
+        htmlStr += 'Play Answer From Start <i class="tim-icons icon-refresh-02"></i>'
         htmlStr += '</button></div>'
 
         htmlStr += '</div>'
@@ -82,15 +99,22 @@ $(document).ready(function(){
         $('.render-items').html(htmlStr)    
                
         setTimer(timer)
-        autoPlay()    
+        autoPlayQues()    
        
  
     }
-    function autoPlay(){
+    function autoPlayQues(){
       var x = document.getElementById("question");
       x.autoplay = true;
       x.load();
     }
+    
+    function autoPlayAns(){
+      var x = document.getElementById("answer");
+      x.autoplay = true;
+      x.load();
+    }
+
     function setTimer(timer){
         const FULL_DASH_ARRAY = 283;
         const WARNING_THRESHOLD = 10;
@@ -159,14 +183,32 @@ $(document).ready(function(){
     $(document).on('click','#stop-alaram',function(e){
       $('#app').hide()
       $('#app1').show()
+      $('#show-ans').show()
+      $('#show-ans-btn').show()
+      autoPlayAns()
     })
+
     $(document).on('click','#replay',function(e){
-      autoPlay()
+      autoPlayQues()
+      console.log($(this).attr('value'))
+    })
+    $(document).on('click','#replay-ans',function(e){
+      autoPlayAns()
       console.log($(this).attr('value'))
       
     })
     $(document).on('click','#next-quest',function(e){
       index = index+1
-      renderItems(index,Quests[index]) 
+      renderItems(index,Quests[index])   
+      if(index===length-1){
+        $('.card-footer').hide()
+      }
+    })
+    function nextQuestion(){
+      index = index+1
+      renderItems(index,Quests[index])   
+    }
+    $(document).on('click','.feedback',function(e){
+      nextQuestion()
     })
 });
