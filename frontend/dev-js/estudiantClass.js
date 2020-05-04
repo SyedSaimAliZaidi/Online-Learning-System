@@ -9,18 +9,21 @@ $(document).ready(function(){
     $('#title').html('Estudiant | '+name ) 
     $('.navbar-brand').html('Estudiant | '+name ) 
 
+    let Quests = new Array()
+    let index = 0;
     $.get('http://localhost:3000/resource/data?code='+code,function(data){
-        console.log(data)
-        $.each(data.resources,function(index,item){
-          renderItems(index,item)
-        })        
-        setTimer()
+      console.log(data)
+      $.each(data.resources,function(index,item){
+        Quests.push(item)
+      })
+      renderItems(index,Quests[index])
     })
 
 
 
     function renderItems(index,item){
         let htmlStr='';
+        let timer = item.timer;
         htmlStr += '<div class="col-lg-8">'
         htmlStr += '<div class="card"  style="cursor:pointer;background-color:white;height:60vh;">'
         htmlStr += '<div class="card-header" >'
@@ -30,7 +33,7 @@ $(document).ready(function(){
         
         htmlStr += '<div class="card-body">'
         
-        htmlStr += '<audio id="myAudio" controls>'
+        htmlStr += '<audio id="question" controls>'
         htmlStr += '<source src="../Recordings/'+item.ques_rec+'" type="audio/ogg">'
         htmlStr += 'Your browser does not support the audio element.'
         htmlStr += '</audio>'
@@ -38,31 +41,57 @@ $(document).ready(function(){
 
         htmlStr += '<div style="display:none;"><h4 class="card-title mt-5" style="cursor:pointer;">Answer '+(index+1)+'</h4>'
         htmlStr += '<p class="card-title">'+item.ans_text+'</p>'
-        htmlStr += '<audio id="myAudio" controls>'
+        htmlStr += '<audio id="question" controls>'
         htmlStr += '<source src="../Recordings/'+item.ans_rec+'" type="audio/ogg">'
         htmlStr += 'Your browser does not support the audio element.'
         htmlStr += '</audio></div>'
-        
-        
+
         htmlStr += '</div>'
+        htmlStr += '<div class="card-footer text-right" >'
+        htmlStr += '<button class="btn btn-default btn-link" id="next-quest">'
+        htmlStr += 'Next <i class="tim-icons icon-double-right"></i>'
+        htmlStr += '</button>'
+
+        htmlStr += '</div>'
+
         htmlStr += '</div>'
         htmlStr += '</div>'
 
 
         htmlStr += '<div class="col-lg-4" >'
         htmlStr += '<div class="card"  style="cursor:pointer;height:60vh;background-color:white;">'
+        htmlStr += '<div class="card-header text-center mt-3" >'
+        htmlStr += '<h3 class="card-title" style="cursor:pointer;">Timer</h3>'
+        htmlStr += '<h4 id="app"  style="color:black;"></h4>'
+        htmlStr += '<h4 id="app1"  style="color:black;display:none;">0:00</h4>'
+        htmlStr += '</div>'
         htmlStr += '<div class="card-body text-center mt-5">'
-        htmlStr += '<div id="app"  style="color:black;"></div>'
-        htmlStr += '</div>'
-        htmlStr += '</div>'
-        htmlStr += '</div>'
-
-
-        $('.render-items').append(htmlStr)    
         
-    }
+        htmlStr += '<div><button class="btn btn-danger" id="stop-alaram" value="'+timer+'">'
+        htmlStr += 'Stop Timer <i class="tim-icons icon-time-alarm"></i>'
+        htmlStr += '</button></div>'
+        htmlStr += '<div><button class="btn btn-default" id="replay">'
+        htmlStr += 'Play From Start <i class="tim-icons icon-refresh-02"></i>'
+        htmlStr += '</button></div>'
 
-    function setTimer(){
+        htmlStr += '</div>'
+        htmlStr += '</div>'
+        htmlStr += '</div>'
+
+
+        $('.render-items').html(htmlStr)    
+               
+        setTimer(timer)
+        autoPlay()    
+       
+ 
+    }
+    function autoPlay(){
+      var x = document.getElementById("question");
+      x.autoplay = true;
+      x.load();
+    }
+    function setTimer(timer){
         const FULL_DASH_ARRAY = 283;
         const WARNING_THRESHOLD = 10;
         const ALERT_THRESHOLD = 5;
@@ -81,12 +110,11 @@ $(document).ready(function(){
           }
         };
         
-        const TIME_LIMIT = 60 * 6 ;
+        const TIME_LIMIT = 60 * parseInt(timer) ;
         let timePassed = 0;
         let timeLeft = TIME_LIMIT;
         let timerInterval = null;
         let remainingPathColor = COLOR_CODES.info.color;
-        
         document.getElementById("app").innerHTML = `
         <div class="base-timer"  style="color:black;">
           <span id="base-timer-label" style="color:black;" class="base-timer__label">${formatTime(
@@ -108,9 +136,6 @@ $(document).ready(function(){
             document.getElementById("base-timer-label").innerHTML = formatTime(
               timeLeft
             );
-            setCircleDasharray();
-            setRemainingPathColor(timeLeft);
-        
             if (timeLeft === 0) {
               onTimesUp();
             }
@@ -127,40 +152,21 @@ $(document).ready(function(){
         
           return `${minutes}:${seconds}`;
         }
-        
-        function setRemainingPathColor(timeLeft) {
-          const { alert, warning, info } = COLOR_CODES;
-          if (timeLeft <= alert.threshold) {
-            document
-              .getElementById("base-timer-path-remaining")
-              .classList.remove(warning.color);
-            document
-              .getElementById("base-timer-path-remaining")
-              .classList.add(alert.color);
-          } else if (timeLeft <= warning.threshold) {
-            document
-              .getElementById("base-timer-path-remaining")
-              .classList.remove(info.color);
-            document
-              .getElementById("base-timer-path-remaining")
-              .classList.add(warning.color);
-          }
-        }
-        
-        function calculateTimeFraction() {
-          const rawTimeFraction = timeLeft / TIME_LIMIT;
-          return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
-        }
-        
-        function setCircleDasharray() {
-          const circleDasharray = `${(
-            calculateTimeFraction() * FULL_DASH_ARRAY
-          ).toFixed(0)} 283`;
-          document
-            .getElementById("base-timer-path-remaining")
-            .setAttribute("stroke-dasharray", circleDasharray);
-        }    
+         
     
     }
 
+    $(document).on('click','#stop-alaram',function(e){
+      $('#app').hide()
+      $('#app1').show()
+    })
+    $(document).on('click','#replay',function(e){
+      autoPlay()
+      console.log($(this).attr('value'))
+      
+    })
+    $(document).on('click','#next-quest',function(e){
+      index = index+1
+      renderItems(index,Quests[index]) 
+    })
 });
