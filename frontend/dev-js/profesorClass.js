@@ -43,40 +43,41 @@ $(document).ready(function(){
     }
 
 
-    let timer= '',
-    ans_rec = '',
-    ans_text = '',
-    ques_rec = '',
-    ques_text = ''
-    $('#q-file').change(function(e){
+    let timer= ''
+    var  ans_rec=null;
+    var ques_rec=null;
+    $('#ques_rec').change(function(e){
         if (this.files && this.files[0]) {            
             console.log(this.files[0])
             ques_rec = this.files[0]
+            console.log(this.files[0])
         }
     })
-    $('#a-file').change(function(e){
+    $('#ans_rec').change(function(e){
         if (this.files && this.files[0]) {            
             console.log(this.files[0])
             ans_rec= this.files[0]
+            console.log(this.files[0])
         }
     })
     $('#add-question').submit(function(e){
         e.preventDefault()
         let formdata = new FormData()
+        formdata.append('code',code)
         formdata.append('ques_rec',ques_rec)
         formdata.append('ques_text',$('#q-text').val())
         formdata.append('ans_rec',ans_rec)
         formdata.append('ans_text',$('#a-text').val())
         formdata.append('timer',$('#timer').val())
+        console.log(ques_rec)
+
+        console.log(ans_rec)
+        console.log(code, $('#q-text').val(),$('#a-text').val(),$('#timer').val())
         $.post( 'http://localhost:3000/resource/addData', 
-        {
-            headers: {
-                "content-type":'multipart/form-data'
-            },
-            data: formdata,
-            
-        },function(data){
+            formdata,
+        function(data){
             console.log(data)
-        });
+        })
+        
     })
 });

@@ -26,8 +26,6 @@ $(document).ready(function(){
       }
     })
 
-
-
     function renderItems(index,item){
         let htmlStr='';
         let timer = item.timer;
@@ -41,7 +39,7 @@ $(document).ready(function(){
         htmlStr += '<p class="card-title">'+item.ques_text+'</p>'
         
         htmlStr += '<audio id="question" controls>'
-        htmlStr += '<source src="../Recordings/'+item.ques_rec+'" type="audio/ogg">'
+        htmlStr += '<source src="http://localhost:3000/'+item.ques_rec+'" type="audio/ogg">'
         htmlStr += 'Your browser does not support the audio element.'
         htmlStr += '</audio>'
         
@@ -49,14 +47,14 @@ $(document).ready(function(){
         htmlStr += '<div id="show-ans" style="display:none;"><h4 class="card-title" style="cursor:pointer;">Answer '+(index+1)+'</h4>'
         htmlStr += '<p class="card-title">'+item.ans_text+'</p>'
         htmlStr += '<audio id="answer" controls>'
-        htmlStr += '<source src="../Recordings/'+item.ans_rec+'" type="audio/ogg">'
+        htmlStr += '<source src="http://localhost:3000/'+item.ans_rec+'" type="audio/ogg">'
         htmlStr += 'Your browser does not support the audio element.'
         htmlStr += '</audio>'
         htmlStr += '<div class="col-md-12 card-title mt-3">'
         htmlStr += '<p><label style="color:black;"><input type="checkbox" id="c" value="Correct"> Correct</label></p>'
         htmlStr += '<p><label style="color:black;"><input type="checkbox" id="m" value="Middleway"> MiddleWay</label></p>'
         htmlStr += '<p><label style="color:black;"><input type="checkbox" id="w" value="Wrong"> Wrong</label></p>'
-        htmlStr += '<p><input type="button" class="btn btn-default feedback" value="Submit Feedback"></p>'
+        htmlStr += '<p><input type="button" class="btn btn-default feedback" value="Submit Feedback" id='+item.id+'></p>'
         htmlStr += '</div></div>'
 
         htmlStr += '</div>'
@@ -208,7 +206,51 @@ $(document).ready(function(){
       index = index+1
       renderItems(index,Quests[index])   
     }
+
+    let res = new Array()
+    $(document).on('click','#c',function(){
+      if(res.length===0)
+        res.push($(this).val())   
+      else{  
+        res = []
+        res.push($(this).val())   
+        console.log(res)
+      }
+    })
+    $(document).on('click','#m',function(){
+      if(res.length===0)
+        res.push($(this).val())   
+      else{  
+        res = []
+        res.push($(this).val())   
+        
+        console.log(res)
+      }
+    })
+    $(document).on('click','#w',function(){
+      if(res.length===0)
+        res = []
+      else{  
+        res = []
+        res.push($(this).val())   
+        
+        console.log(res)
+      }
+    })
     $(document).on('click','.feedback',function(e){
-      nextQuestion()
+    
+      if(res.length===1){
+        $.post('http://localhost:3000/resource/response',{
+            id : $(this).attr('id'),
+            code : code,
+            sid : localStorage.getItem('sid'),
+            res : res[0]
+          }, function(data){
+            console.log(data)
+            alert('Feedback Submitted!')
+            nextQuestion()
+          }
+        )
+      }
     })
 });
