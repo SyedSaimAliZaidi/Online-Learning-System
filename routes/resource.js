@@ -113,9 +113,22 @@ app.post('/enroll', async(req, res) => {
     })
 })
 
-var cpUpload = upload.fields([{ name: 'ques_rec', maxCount: 1 }, { name: 'ans_rec', maxCount: 1 }])
-app.post('/addData', cpUpload, async (req, res) => {
-    ret = await insert.addData(req.body.code, req.files['ques_rec'][0]['filename'], req.files['ans_rec'][0]['filename'], req.body.ques_text, req.body.ans_text, req.body.timer)
+// var cpUpload = upload.fields([{ name: 'ques_rec', maxCount: 1 }, { name: 'ans_rec', maxCount: 1 }])
+var ms = require('mediaserver');
+app.get('/*/:name', (req, res) => {
+    var AUDIOFILE = path.join(__dirname, '../Recordings/' + req.params.name)
+    ms.pipe(req,res,AUDIOFILE);
+})
+app.post('/add',upload.array('file', 2),async (req, res) => {
+    ret = await insert.addData(req.body.code, req.body.ques_rec, req.body.ans_rec, req.body.ques_text, req.body.ans_text, req.body.timer)
+
+    res.send({
+        result: req.body
+    })
+})
+
+app.post('/addData',upload.array('file', 2),async (req, res) => {
+    ret = await insert.addData(req.body.code, req.body.ques_rec, req.body.ans_rec, req.body.ques_text, req.body.ans_text, req.body.timer)
 
     res.send({
         result: req.body

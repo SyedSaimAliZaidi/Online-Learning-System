@@ -24,12 +24,12 @@ $(document).ready(function(){
                 htmlStr += '<div class="card-body">'
                 htmlStr += '<p style="color:black;">Question : '+item.ques_text+'</p>'
                 htmlStr += '<audio id="myAudio" controls>'
-                htmlStr += '<source src="../Recordings/'+item.ques_rec+'" type="audio/ogg">'
+                htmlStr += '<source src="http://localhost:3000/'+item.ques_rec+'" type="audio/ogg">'
                 htmlStr += 'Your browser does not support the audio element.'
                 htmlStr += '</audio>'
                 htmlStr += '<p  style="color:black;">Answer : '+item.ans_text+'</p>'
                 htmlStr += '<audio id="myAudio" controls>'
-                htmlStr += '<source src="../Recordings/'+item.ans_rec+'" type="audio/ogg">'
+                htmlStr += '<source src="http://localhost:3000/'+item.ans_rec+'" type="audio/ogg">'
                 htmlStr += 'Your browser does not support the audio element.'
                 htmlStr += '</audio>'
                 htmlStr += '<p  style="color:black;">Timer : '+item.timer+' min</p>'
@@ -62,22 +62,22 @@ $(document).ready(function(){
     })
     $('#add-question').submit(function(e){
         e.preventDefault()
-        let formdata = new FormData()
+        var formdata = new FormData()
+        formdata.append('file',ques_rec)
+        formdata.append('file',ques_rec)
         formdata.append('code',code)
-        formdata.append('ques_rec',ques_rec)
+        formdata.append('ques_rec',ques_rec.name)
         formdata.append('ques_text',$('#q-text').val())
-        formdata.append('ans_rec',ans_rec)
+        formdata.append('ans_rec',ans_rec.name)
         formdata.append('ans_text',$('#a-text').val())
         formdata.append('timer',$('#timer').val())
         console.log(ques_rec)
-
         console.log(ans_rec)
-        console.log(code, $('#q-text').val(),$('#a-text').val(),$('#timer').val())
-        $.post( 'http://localhost:3000/resource/addData', 
-            formdata,
-        function(data){
-            console.log(data)
-        })
-        
+
+        console.log(code , ques_rec.name,ans_rec.name, $('#q-text').val(),$('#a-text').val(),$('#timer').val())
+        axios.post('http://localhost:3000/resource/addData',formdata
+        )
+        .then(res=>console.log(res))        
+        .catch(err=>console.log(err))
     })
 });

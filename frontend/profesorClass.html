@@ -112,7 +112,7 @@
                     <h3 class="card-title">Add Question</h3>
                   </div>
                   <div class="card-body">
-                    <form action="http://localhost:3000/resource/addData" method="post" enctype="multipart/form-data">
+                    <form id="add-question">
                       <div class="form-group">
                         <label for="exampleInputEmail1" style="color: black;" >Class Code</label>
                         <input disabled style="color: black;background-color: white;" type="text" class="form-control class" name="code" id="code">
@@ -120,24 +120,24 @@
 
                       <div class="form-group">
                         <label for="exampleInputEmail1" style="color: black;" >Question Text</label>
-                        <input required style="color: black;" type="text" class="form-control class" name="ques_text" placeholder="Enter Question Text">
+                        <input required style="color: black;" type="text" class="form-control class" id="q-text" name="ques_text" placeholder="Enter Question Text">
                       </div>              
                       <div class="form-group">
                         <button type="button" class="btn btn-default">Upload Question</button>
-                        <input required type="file"  name="ques_rec">
+                        <input required type="file"  name="ques_rec" id="ques_rec">
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1" style="color: black;" >Answer Text</label>
-                        <input required style="color: black;" type="text" class="form-control class" name="ans_text" placeholder="Enter Answer Text">
+                        <input required style="color: black;" type="text" class="form-control class" id="a-text" name="ans_text" placeholder="Enter Answer Text">
                       </div>              
                       <div class="form-group">
                         <button type="button" class="btn btn-default">Upload Answer</button>
-                        <input required type="file"  name="ans_rec">
+                        <input required type="file"  name="ans_rec" id="ans_rec">
                       </div>
                       
                       <div class="form-group">
                         <label for="exampleInputEmail1" style="color: black;" >Add Timer</label>
-                        <input required style="color: black;" type="text" class="form-control class" name="timer" placeholder="Enter Time">
+                        <input required style="color: black;" type="text" class="form-control class" name="timer" id="timer" placeholder="Enter Time">
                       </div>              
                       <button type="submit" class="btn btn-default">Add</button>
                     </form>
@@ -174,6 +174,9 @@
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="assets/demo/demo.js"></script>
+  
+  <script src="./dev-js/profesorClass.js"></script>
+  <script src="./dev-js/logoutp.js"></script>
   <script>
     $(document).ready(function() {
       $('#classname').click(function(){
@@ -288,8 +291,6 @@
       });
     });
   </script>
-  <script src="./dev-js/profesorClass.js"></script>
-  <script src="./dev-js/logoutp.js"></script>
 </body>
 
 </html>
