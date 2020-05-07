@@ -119,13 +119,6 @@ app.get('/*/:name', (req, res) => {
     var AUDIOFILE = path.join(__dirname, '../Recordings/' + req.params.name)
     ms.pipe(req,res,AUDIOFILE);
 })
-app.post('/add',upload.array('file', 2),async (req, res) => {
-    ret = await insert.addData(req.body.code, req.body.ques_rec, req.body.ans_rec, req.body.ques_text, req.body.ans_text, req.body.timer)
-
-    res.send({
-        result: req.body
-    })
-})
 
 app.post('/addData',upload.array('file', 2),async (req, res) => {
     ret = await insert.addData(req.body.code, req.body.ques_rec, req.body.ans_rec, req.body.ques_text, req.body.ans_text, req.body.timer)
